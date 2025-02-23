@@ -1,0 +1,29 @@
+@keyframes enter {
+    0% {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+[data-animate] > * {
+    --stagger: 0;
+    --delay: 120ms;
+    --start: 0ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    [data-animate] > * {
+        animation: enter 500ms both;
+        animation-delay: calc(var(--stagger) * var(--delay) + var(--start));
+    }
+}
+
+[data-animate] > *:nth-child(1) { --stagger: 1; }
+[data-animate] > *:nth-child(2) { --stagger: 2; }
+[data-animate] > *:nth-child(3) { --stagger: 3; }
+[data-animate] > *:nth-child(4) { --stagger: 4; }
+[data-animate] > *:nth-child(5) { --stagger: 5; }
