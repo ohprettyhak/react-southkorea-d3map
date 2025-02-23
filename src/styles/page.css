@@ -2,6 +2,9 @@
     --color-text: #212121;
     --color-border: #E0E0E0;
     --color-background: #F9F9F9;
+
+    --color-map-border: #C0C0C0;
+    --color-map-background: #FEFEFE;
 }
 
 main {
