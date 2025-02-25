@@ -23,11 +23,11 @@ const App = () => {
           element: <Gate />,
         },
         {
-          path: '/geojson',
+          path: '/GeoJSON',
           element: <GeoJSON />,
         },
         {
-          path: '/topojson',
+          path: '/TopoJSON',
           element: <TopoJSON />,
         },
         {
