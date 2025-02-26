@@ -1,4 +1,13 @@
-import {config} from '@hakui/eslint-config/vite';
+import { config as baseConfig } from '@hakui/eslint-config/vite';
 
-/** @type {import("eslint").Linter.Config} */
+/** @type {import('eslint').Linter.Config} */
+const config = {
+  ...baseConfig,
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
+  },
+};
+
 export default config;

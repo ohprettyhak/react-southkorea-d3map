@@ -1,5 +1,5 @@
 import { GeoGeometryObjects, geoMercator, geoPath, json, select } from 'd3';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface GeoJSONFeature {
   type: string;
@@ -20,9 +20,10 @@ interface GeoJSONData {
   features: GeoJSONFeature[];
 }
 
-const [width, height] = [560, 488];
+const [width, height] = [620, 488];
 
 const GeoJSON = () => {
+  const [selectedRegion, setSelectedRegion] = useState<string>('');
   const mapRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
@@ -30,8 +31,8 @@ const GeoJSON = () => {
 
     const projection = geoMercator()
       .center([127.7669, 35.9078])
-      .scale(3500)
-      .translate([(width - 150) / 2, height / 2]);
+      .scale(4000)
+      .translate([(width - 75) / 2, height / 2]);
 
     const path = geoPath().projection(projection);
 
@@ -51,10 +52,23 @@ const GeoJSON = () => {
           .attr('fill', 'var(--color-map-background)')
           .attr('stroke', 'var(--color-map-border)')
           .attr('stroke-opacity', 1)
-          .attr('stroke-width', 1);
+          .attr('stroke-width', 1)
+          .on('click', (event, d) => {
+            $map
+              .selectAll('.regions path')
+              .attr('fill', 'var(--color-map-background)')
+              .attr('stroke', 'var(--color-map-border)');
+
+            select(event.currentTarget)
+              .attr('fill', 'var(--color-map-selected-background)')
+              .attr('stroke', 'var(--color-map-selected-border)');
+
+            const regionName: string = d.properties ? d.properties.name : 'unknown';
+            setSelectedRegion(regionName);
+          });
       })
       .catch((error) => {
-        console.error('GeoJSON 데이터 로드 실패:', error);
+        console.error('Failed to load JSON data:', error);
       });
   }, []);
 
@@ -71,6 +85,11 @@ const GeoJSON = () => {
           <g className="regions" />
         </svg>
       </div>
+
+      <p className="selected-region">
+        {selectedRegion && 'Selected Region:'}&nbsp;
+        {selectedRegion}
+      </p>
     </main>
   );
 };

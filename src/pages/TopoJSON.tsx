@@ -1,12 +1,13 @@
 import { type GeoGeometryObjects, geoMercator, geoPath, json, select } from 'd3';
 import { FeatureCollection, Feature } from 'geojson';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as topojson from 'topojson-client';
 import { type Topology } from 'topojson-specification';
 
-const [width, height] = [560, 488];
+const [width, height] = [620, 488];
 
 const TopoJSON = () => {
+  const [selectedRegion, setSelectedRegion] = useState<string>('');
   const mapRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
@@ -24,26 +25,36 @@ const TopoJSON = () => {
         ) as FeatureCollection;
 
         const projection = geoMercator().fitSize([width, height], topologyData);
-
         const path = geoPath().projection(projection);
 
         $map
           .select('.regions')
           .selectAll('path')
           .data(topologyData.features)
-          .join((enter) =>
-            enter
-              .append('path')
-              .attr('d', (d: Feature) => path(d.geometry as GeoGeometryObjects) || '')
+          .join('path')
+          .attr('d', (d: Feature) => path(d.geometry as GeoGeometryObjects))
+          .attr('fill', 'var(--color-map-background)')
+          .attr('stroke', 'var(--color-map-border)')
+          .attr('stroke-opacity', 1)
+          .attr('stroke-width', 1)
+          .style('cursor', 'pointer')
+          .style('transition', 'fill 300ms, stroke 300ms')
+          .on('click', (event, d: Feature) => {
+            $map
+              .selectAll('.regions path')
               .attr('fill', 'var(--color-map-background)')
-              .attr('stroke', 'var(--color-map-border)')
-              .attr('stroke-opacity', 1)
-              .attr('stroke-width', 1)
-              .style('cursor', 'pointer'),
-          );
+              .attr('stroke', 'var(--color-map-border)');
+
+            select(event.currentTarget)
+              .attr('fill', 'var(--color-map-selected-background)')
+              .attr('stroke', 'var(--color-map-selected-border)');
+
+            const regionName: string = d.properties ? d.properties.name : 'unknown';
+            setSelectedRegion(regionName);
+          });
       })
       .catch((error) => {
-        console.error('GeoJSON 데이터 로드 실패:', error);
+        console.error('Failed to load JSON data:', error);
       });
   }, []);
 
@@ -60,6 +71,11 @@ const TopoJSON = () => {
           <g className="regions" />
         </svg>
       </div>
+
+      <p className="selected-region">
+        {selectedRegion && 'Selected Region:'}&nbsp;
+        {selectedRegion}
+      </p>
     </main>
   );
 };
