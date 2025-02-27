@@ -36,3 +36,4 @@ jobs:
           publish_dir: ./dist
           publish_branch: deploy
           commit_message: 'deploy: build from main branch'
+          force_orphan: true
