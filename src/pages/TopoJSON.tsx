@@ -15,7 +15,7 @@ const TopoJSON = () => {
 
     const $map = select(mapRef.current);
 
-    json<Topology>('/assets/skorea-provinces-2018-topo-simple.json')
+    json<Topology>('https://raw.githubusercontent.com/ohprettyhak/react-southkorea-d3map/refs/heads/main/src/assets/skorea-provinces-2018-topo-simple.json')
       .then((data) => {
         if (!data) return;
 
