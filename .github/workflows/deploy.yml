@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: deploy
 
 on:
   push:
@@ -35,4 +35,4 @@ jobs:
           github_token: ${{ secrets.DEPLOY_ACCESS_TOKEN }}
           publish_dir: ./dist
           publish_branch: deploy
-          commit_message: 'Deploy: Build from main branch'
+          commit_message: 'deploy: build from main branch'

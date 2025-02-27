@@ -5,8 +5,6 @@
   "homepage": "https://ohprettyhak.github.io/react-southkorea-d3map",
   "type": "module",
   "scripts": {
-    "predeploy": "pnpm build",
-    "deploy": "gh-pages -d dist",
     "dev": "vite --host 0.0.0.0 --port 1113",
     "build": "tsc -b && vite build",
     "lint": "eslint . --max-warnings 0",
@@ -30,7 +28,6 @@
     "@types/topojson-specification": "^1.0.5",
     "@vitejs/plugin-react-swc": "^3.8.0",
     "eslint": "^9.21.0",
-    "gh-pages": "^6.3.0",
     "prettier": "^3.5.2",
     "typescript": "^5.7.3",
     "vite": "^6.2.0"
