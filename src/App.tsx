@@ -18,22 +18,10 @@ const App = () => {
         </>
       ),
       children: [
-        {
-          path: '/',
-          element: <Gate />,
-        },
-        {
-          path: '/GeoJSON',
-          element: <GeoJSON />,
-        },
-        {
-          path: '/TopoJSON',
-          element: <TopoJSON />,
-        },
-        {
-          path: '*',
-          element: <Navigate to="/" replace />,
-        },
+        { path: '/', element: <Gate /> },
+        { path: '/GeoJSON', element: <GeoJSON /> },
+        { path: '/TopoJSON', element: <TopoJSON /> },
+        { path: '*', element: <Navigate to="/" replace /> },
       ],
     },
   ]);
