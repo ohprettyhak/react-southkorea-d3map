@@ -6,8 +6,21 @@ const config = [
   {
     settings: {
       'import/resolver': {
-        typescript: {},
+        typescript: {
+          project: ['tsconfig.json'],
+        },
+        node: {
+          project: ['tsconfig.json'],
+        },
       },
+    },
+    rules: {
+      'import/no-unresolved': [
+        'error',
+        {
+          ignore: ['geojson', 'topojson-specification'],
+        },
+      ],
     },
   },
 ];
