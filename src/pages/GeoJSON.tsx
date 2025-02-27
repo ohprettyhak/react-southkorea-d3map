@@ -38,7 +38,7 @@ const GeoJSON = () => {
 
     const $map = select(mapRef.current);
 
-    json<GeoJSONData>('/assets/skorea-provinces-2018-geo.json')
+    json<GeoJSONData>('https://raw.githubusercontent.com/ohprettyhak/react-southkorea-d3map/refs/heads/main/src/assets/skorea-provinces-2018-geo.json')
       .then((data) => {
         if (!data) return;
 
