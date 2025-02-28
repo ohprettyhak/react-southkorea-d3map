@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { Gate, GeoJSON, TopoJSON } from './pages';
+import { ThemeProvider } from './ThemeProvider';
 
 const App = () => {
   const router = createBrowserRouter(
@@ -28,7 +29,11 @@ const App = () => {
     ],
     { basename: import.meta.env.BASE_URL },
   );
-  return <RouterProvider router={router} />;
+  return (
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
 };
 
 export default App;

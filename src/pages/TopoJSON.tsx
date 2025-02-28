@@ -15,7 +15,9 @@ const TopoJSON = () => {
 
     const $map = select(mapRef.current);
 
-    json<Topology>('https://raw.githubusercontent.com/ohprettyhak/react-southkorea-d3map/refs/heads/main/src/assets/skorea-provinces-2018-topo-simple.json')
+    json<Topology>(
+      'https://raw.githubusercontent.com/ohprettyhak/react-southkorea-d3map/refs/heads/main/src/assets/skorea-provinces-2018-topo-simple.json',
+    )
       .then((data) => {
         if (!data) return;
 
@@ -38,7 +40,7 @@ const TopoJSON = () => {
           .attr('stroke-opacity', 1)
           .attr('stroke-width', 1)
           .style('cursor', 'pointer')
-          .style('transition', 'fill 300ms, stroke 300ms')
+          .style('transition', 'fill 0.3s, stroke 0.3s')
           .on('click', (event, d: Feature) => {
             $map
               .selectAll('.regions path')
@@ -46,8 +48,8 @@ const TopoJSON = () => {
               .attr('stroke', 'var(--color-map-border)');
 
             select(event.currentTarget)
-              .attr('fill', 'var(--color-map-selected-background)')
-              .attr('stroke', 'var(--color-map-selected-border)');
+              .attr('fill', 'var(--color-map-background-select)')
+              .attr('stroke', 'var(--color-map-border-select)');
 
             const regionName: string = d.properties ? d.properties.name : 'unknown';
             setSelectedRegion(regionName);
