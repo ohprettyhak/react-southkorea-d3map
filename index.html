@@ -4,6 +4,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>react-southkorea-d3map</title>
+  <script>
+    (function() {
+      window.__onThemeChange = function() {
+      };
+
+      function setTheme(newTheme) {
+        window.__theme = newTheme;
+        preferredTheme = newTheme;
+        document.documentElement.setAttribute('data-theme', newTheme);
+        window.__onThemeChange(newTheme);
+      }
+
+      var preferredTheme;
+      try {
+        preferredTheme = localStorage.getItem('theme');
+      } catch (err) {
+      }
+      window.__setPreferredTheme = function(newTheme) {
+        setTheme(newTheme);
+        try {
+          localStorage.setItem('theme', newTheme);
+        } catch (err) {
+        }
+      };
+      const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      darkQuery.addListener(function(e) {
+        window.__setPreferredTheme(e.matches ? 'dark' : 'light');
+      });
+      setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
+    })();
+  </script>
 </head>
 <body>
 <div id="root"></div>

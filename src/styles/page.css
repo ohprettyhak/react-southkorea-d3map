@@ -1,13 +1,34 @@
 :root {
     --color-text: #212121;
-    --color-border: rgba(231, 231, 231, 0.5);
     --color-background: #FFFFFF;
+
+    --color-button-border: rgba(231, 231, 231, 0.5);
+    --color-button-background: #FFFFFF;
 
     --color-map-border: #C0C0C0;
     --color-map-background: #FEFEFE;
 
     --color-map-selected-border: #A0A0A0;
     --color-map-selected-background: #DDDDDD;
+}
+
+:root[data-theme="dark"] {
+    --color-text: #e0e0e0;
+    --color-background: #333333;
+
+    --color-button-border: rgba(231, 231, 231, 0.5);
+    --color-button-background: #FFFFFF;
+
+    --color-map-border: #666666;
+    --color-map-background: #222222;
+
+    --color-map-selected-border: #999999;
+    --color-map-selected-background: #444444;
+}
+
+body {
+    background-color: var(--color-background);
+    transition: background-color 300ms;
 }
 
 main {
